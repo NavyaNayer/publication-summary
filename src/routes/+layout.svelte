@@ -9,7 +9,7 @@
 	function toggleFilters() {
 		showFilters = !showFilters;
 	}
-	
+	import '../app.css';
 </script>
 
 <!-- Menu Toggle Button -->
@@ -25,11 +25,21 @@
 				<h1>Academia Assistant</h1>
 			</a>
 		</div>
+
 		<!-- Centered Search Field with Filter Icon -->
 		<div class="search-wrapper">
 			<input type="text" placeholder="Search..." class="search-field" />
 			<button class="filter-icon" on:click={toggleFilters}>
 				<span class="material-icons">filter_list</span>
+			</button>
+			<!-- Generate and Upload Buttons -->
+			<button class="generate-button">
+				<span class="material-icons">add_circle</span>
+				<span class="button-text">Generate</span>
+			</button>
+			<button class="upload-button">
+				<span class="material-icons">upload</span>
+				<span class="button-text">Upload</span>
 			</button>
 			{#if showFilters}
 				<div class="filter-popup">
@@ -69,8 +79,8 @@
 						</div>
 					</div>
 					<div class="filter-buttons">
-						<button on:click={() => showFilters = false}>Apply Filters</button>
-						<button on:click={() => showFilters = false} class="clear-filters">Clear Filters</button>
+						<button class="apply-button" on:click={() => showFilters = false}>Apply Filters</button>
+						<button class="reset-button" on:click={() => showFilters = false}>Clear Filters</button>
 					</div>
 				</div>
 			{/if}
@@ -78,13 +88,6 @@
 
 		<!-- Right Side Buttons -->
 		<div class="nav-buttons">
-			<button class="generate-button">
-				<span class="material-icons">add_circle</span> Generate
-			</button>
-			<button class="upload-button">
-				<span class="material-icons">upload</span> Upload
-			</button>
-			
 			<div class="profile-menu">
 				<!-- Profile Button with Profile Picture -->
 				<button class="profile-button">
@@ -123,9 +126,9 @@
 <style>
 	/* Color Theme: White, Blue, Yellow, Black */
 	header {
-		background: #00358b;
+		background: #1A4870;
 		color: #fff;
-		padding: 0.5rem 1rem; /* Reduced padding for better fit */
+		padding: 0.5rem 1rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -143,48 +146,52 @@
 	}
 
 	.menu-toggle {
-		background: none; /* No background */
-		color: #fff; /* White text color */
+		background: none;
+		color: #fff;
 		border: none;
-		font-size: 1.25rem; /* Adjusted size for better fit */
+		font-size: 1.25rem;
 		cursor: pointer;
 		position: fixed;
 		top: 1rem;
 		left: 1rem;
-		z-index: 1100; /* Ensure toggle button is above the menu */
+		z-index: 1100;
 		padding: 0.5rem;
 		border-radius: 5px;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: add a slight shadow for better visibility */
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	}
 
 	.site-name {
-		margin-left: 3rem; /* Adjusted margin */
+		text-align: left;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		padding-left: 3rem;
 	}
 
 	.site-link {
-		text-decoration: none; /* Remove underline from link */
-		color: #fff; /* Ensure text color matches header */
-		transition: transform 0.3s ease; /* Smooth transition for the size change */
+		text-decoration: none;
+		color: #fff;
 	}
 
 	.site-link h1 {
-		font-size: 2rem; /* Initial font size */
-		margin: 0; /* Remove default margin from h1 */
+		font-size: 2rem;
+		margin: 0;
+		transition: transform 0.3s ease;
 	}
 
 	.site-link:hover h1 {
-		transform: scale(1.05); /* Slightly increase the size on hover */
+		transform: scale(1.05);
 	}
-
-
 
 	.search-wrapper {
 		display: flex;
 		align-items: center;
-		background-color: #fff;
+		background-color: transparent;
 		border-radius: 5px;
 		padding: 0.2rem;
-		width: 300px;
+		flex: 1;
+		max-width: 400px;
+		margin: 0 1rem;
 		position: relative;
 	}
 
@@ -193,103 +200,65 @@
 		padding: 0.2rem 0.5rem;
 		border-radius: 5px;
 		flex: 1;
-		font-size: 0.8rem;
+		font-size: 1rem;
 	}
 
 	.filter-icon {
 		background: none;
 		border: none;
 		cursor: pointer;
-		font-size: 1.2rem;
-		color: #333;
+		font-size: 1.5rem;
+		color: #ffffff;
+		padding: 0.5rem;
 		margin-left: 0.5rem;
 	}
 
-	.filter-popup {
-		position: absolute;
-		background-color: #fff;
-		color: #000;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		padding: 1rem;
-		border-radius: 5px;
-		top: 100%;
-		right: 0;
-		width: 300px;
-		z-index: 1200; /* Ensure popup is above other elements */
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.filter-section {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.filter-option {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.filter-option label {
-		margin-bottom: 0.5rem;
-	}
-
-	.filter-option select {
-		width: 100%;
-	}
-
-	.filter-buttons {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.filter-buttons button {
-		background-color: #1e90ff;
-		color: white;
-		border: none;
-		padding: 0.5rem;
-		border-radius: 5px;
-		cursor: pointer;
-	}
-
-	.filter-buttons button:hover {
-		background-color: #1c86ee;
-	}
-
-	.clear-filters {
-		background-color: #ff5722;
-	}
-
-	.clear-filters:hover {
-		background-color: #e64a19;
-	}
-
-	.nav-buttons {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-
 	.generate-button, .upload-button {
-		background-color: #fdd835;
-		color: black;
+		background-color: transparent;
+		color: #fff;
 		border: none;
-		padding: 0.5rem 1rem;
-		border-radius: 5px;
 		cursor: pointer;
+		padding: 0.5rem;
 		display: flex;
 		align-items: center;
-		gap: 0.5rem; /* Space between icon and text */
+
+		justify-content: center;
+	}
+
+	.generate-button {
+		color: #ffffff;
+	}
+
+	.upload-button {
+		color: #ffffff;
 	}
 
 	.generate-button .material-icons, .upload-button .material-icons {
-		font-size: 1.2rem; /* Adjust icon size as needed */
+		font-size: 1.5rem;
+	}
+
+	.button-text {
+		display: none;
+		margin-left: 0.5rem;
+	}
+
+	.generate-button:hover .button-text, .upload-button:hover .button-text {
+		display: inline;
+	}
+
+	.generate-button:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+
+	.upload-button:hover {
+		background-color: rgba(255, 255, 255, 0.1);
 	}
 
 	.profile-menu {
 		position: relative;
+		display: flex;
+		align-items: center;
+		margin-left: 1rem;
 	}
 
 	.profile-button {
@@ -300,26 +269,26 @@
 	}
 
 	.profile-pic {
-		border-radius: 50%; /* Circular shape */
-		width: 40px; /* Adjust size as needed */
-		height: 40px; /* Adjust size as needed */
-		object-fit: cover; /* Ensure the image covers the area */
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
 	}
 
 	.profile-dropdown {
-	position: absolute;
-	top: 100%;
-	right: 0;
-	background-color: #ffffff;
-	color: #333;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	border-radius: 0.25rem; /* Rounded corners */
-	padding: 0.5rem 0; /* Padding for better spacing */
-	width: 200px; /* Fixed width for consistency */
-	z-index: 1050; /* Bootstrap dropdowns have z-index of 1050 */
-	opacity: 0; /* Start as hidden */
-	visibility: hidden; /* Hide from layout */
-	transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth fade-in effect */
+		position: absolute;
+		top: 100%;
+		right: 0;
+		background-color: #ffffff;
+		color: #333;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		border-radius: 0.25rem;
+		padding: 0.5rem 0;
+		width: 100px;
+		z-index: 1050;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
 	}
 
 	.profile-menu:hover .profile-dropdown {
@@ -331,22 +300,22 @@
 		color: #333;
 		text-decoration: none;
 		padding: 0.5rem 1rem;
-		display: block; /* Full width clickable area */
+		display: block;
 	}
 
 	.profile-dropdown a:hover {
-		background-color: #f8f9fa; /* Light grey background on hover */
-		color: #007bff; /* Primary color text on hover */
+		background-color: #f8f9fa;
+		color: #007bff;
 	}
 
 	.dropdown-divider {
-		border-top: 1.5px solid #6f6f6f; /* Divider color */
-		margin: 0.5rem 0; /* Margin around divider */
+		border-top: 1.5px solid #6f6f6f;
+		margin: 0.5rem 0;
 	}
-
-
-	.profile-menu:hover .profile-dropdown {
-		display: block;
+	.nav-buttons {
+		display: flex;
+		align-items: center;
+		gap: 0.5 rem; /* Space between items */
 	}
 
 	.notifications-button {
@@ -355,21 +324,20 @@
 		color: #fff;
 		font-size: 1.5rem;
 		cursor: pointer;
-		margin-left: -1.75rem;
+		margin-left: 1rem;
 	}
 
-	/* Static Side Menu */
 	aside.side-menu {
 		position: fixed;
-		top: 50;
+		top: 0;
 		left: 0;
 		height: 100%;
 		width: 250px;
-		background-color: #ffffe0; /* Light Yellow */
+		background-color: #D7D6D6;
 		padding: 1rem;
 		transform: translateX(-100%);
 		transition: transform 0.3s ease;
-		z-index: 1001; /* Ensure menu is behind the toggle button */
+		z-index: 1001;
 	}
 
 	aside.side-menu.show {
@@ -388,7 +356,7 @@
 	}
 
 	.side-menu button {
-		background-color: #ffeb3b; /* Yellow */
+		background-color: #8D8D92;
 		color: black;
 		border: none;
 		padding: 0.5rem 1rem;
@@ -399,19 +367,66 @@
 	}
 
 	.side-menu button:hover {
-		background-color: #fdd835; /* Darker Yellow */
+		background-color: #fdd835;
+	}
+
+	.filter-popup {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		background-color: #fff;
+		color: #333;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		border-radius: 0.25rem;
+		padding: 1rem;
+		width: 250px;
+		z-index: 1050;
+	}
+
+	.filter-section {
+		margin-bottom: 1rem;
+	}
+
+	.filter-option {
+		margin-bottom: 0.5rem;
+	}
+
+	.filter-buttons {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.apply-button, .reset-button {
+		background-color: #007bff;
+		color: #fff;
+		border: none;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 0.875rem;
+	}
+
+	.reset-button {
+		background-color: #6c757d;
+	}
+
+	.apply-button:hover {
+		background-color: #0056b3;
+	}
+
+	.reset-button:hover {
+		background-color: #5a6268;
 	}
 
 	main {
-		/* Adjust margin when menu is open */
-		margin-left: 50px; /* Default small margin */
+		margin-left: 50px;
 		padding: 1rem;
-		background-color: #fff; /* White */
-		color: #333; /* Black */
+		background-color: #fff;
+		color: #333;
 		transition: margin-left 0.3s ease;
 	}
 
 	main.with-menu {
-		margin-left: 250px; /* Sidebar width */
+		margin-left: 250px;
 	}
 </style>
