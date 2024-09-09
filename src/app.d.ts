@@ -6,3 +6,10 @@ declare namespace App {
         content?: string;
     }
 }
+declare global {
+	interface Window {
+	  vis: any;
+	}
+  }
+
+  export {};

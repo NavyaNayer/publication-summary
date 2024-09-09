@@ -10,6 +10,19 @@
 		showFilters = !showFilters;
 	}
 	import '../app.css';
+	// Get the current year
+	const currentYear = new Date().getFullYear();
+  
+	// Generate an array of years from 2024 to 2003
+	let years = [];
+	for (let year = 2024; year >= 2003; year--) {
+		years.push(year);
+	}
+
+	// Initialize selected start and end years
+	let startYear = currentYear;
+	let endYear = currentYear;
+
 </script>
 
 <!-- Menu Toggle Button -->
@@ -46,47 +59,45 @@
 				<span class="button-text">Upload</span>
 			</button>
 			{#if showFilters}
-				<div class="filter-popup show">
-					<div class="filter-section">
-					<h3>Filter Options</h3>
-					<div class="filter-option">
-						<label>Date Range:</label>
-						<select>
-						<option>Today</option>
-						<option>Last Week</option>
-						<option>Last Month</option>
-						</select>
+			<div class="filter-popup show">
+				<div class="filter-section">
+				  <h3>Filter Options</h3>
+				  <div id="filter-option">
+					<div class="filter-group">
+					  <label for="start-year-select">Start Year:</label>
+					  <select id="start-year-select" bind:value={startYear}>
+						{#each years as year}
+						  <option value={year}>{year}</option>
+						{/each}
+					  </select>
+					</div>
+					<div class="filter-group">
+					  <label for="end-year-select">End Year:</label>
+					  <select id="end-year-select" bind:value={endYear}>
+						{#each years as year}
+						  <option value={year}>{year}</option>
+						{/each}
+					  </select>
 					</div>
 					<div class="filter-option">
-						<label>Categories:</label>
-						<select multiple>
-						<option>Events</option>
-						<option>Pages</option>
-						<option>Students</option>
-						</select>
+					  <label for="h-index">H-index:</label>
+					  <input type="number" id="h-index" name="h-index" min="0" step="1">
 					</div>
 					<div class="filter-option">
-						<label>Status:</label>
-						<select>
-						<option>Active</option>
-						<option>Completed</option>
-						<option>Pending</option>
-						</select>
+					  <label for="i-index">I-index:</label>
+					  <input type="number" id="i-index" name="i-index" min="0" step="1">
 					</div>
 					<div class="filter-option">
-						<label>Sort By:</label>
-						<select>
-						<option>Alphabetical</option>
-						<option>Most Recent</option>
-						<option>Popular</option>
-						</select>
+					  <label for="limit">Limit:</label>
+					  <input type="number" id="limit" name="limit" min="0" step="1">
 					</div>
-					</div>
-					<div class="filter-buttons">
+				  </div>
+				  <div class="filter-buttons">
 					<button class="apply-button" on:click={() => showFilters = false}>Apply Filters</button>
 					<button class="reset-button" on:click={() => showFilters = false}>Clear Filters</button>
-					</div>
+				  </div>
 				</div>
+			  </div>
 				{/if}
 
 		</div>
