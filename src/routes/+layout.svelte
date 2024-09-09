@@ -13,15 +13,19 @@
 </script>
 
 <!-- Menu Toggle Button -->
-<button class="menu-toggle" on:click={toggleMenu}>
+<!-- Menu Toggle Button 
+<button class="menu-toggle" on:click={toggleMenu} class:active={showMenu}>
 	<span class="material-icons">menu</span>
-</button>
+</button>-->
 
 <header>
 	<nav class="top-nav">
 		<!-- Site Name -->
-		<div class="site-name">
+		<div class="site-name" >
 			<a href="/" class="site-link">
+				<div class="site-logo-container">
+					<img src="./src/lib/images/logo.png" alt="Logo" class="site-logo" />
+				</div>
 				<h1>Academia Assistant</h1>
 			</a>
 		</div>
@@ -42,48 +46,49 @@
 				<span class="button-text">Upload</span>
 			</button>
 			{#if showFilters}
-				<div class="filter-popup">
+				<div class="filter-popup show">
 					<div class="filter-section">
-						<h3>Filter Options</h3>
-						<div class="filter-option">
-							<label>Date Range:</label>
-							<select>
-								<option>Today</option>
-								<option>Last Week</option>
-								<option>Last Month</option>
-							</select>
-						</div>
-						<div class="filter-option">
-							<label>Categories:</label>
-							<select multiple>
-								<option>Events</option>
-								<option>Pages</option>
-								<option>Students</option>
-							</select>
-						</div>
-						<div class="filter-option">
-							<label>Status:</label>
-							<select>
-								<option>Active</option>
-								<option>Completed</option>
-								<option>Pending</option>
-							</select>
-						</div>
-						<div class="filter-option">
-							<label>Sort By:</label>
-							<select>
-								<option>Alphabetical</option>
-								<option>Most Recent</option>
-								<option>Popular</option>
-							</select>
-						</div>
+					<h3>Filter Options</h3>
+					<div class="filter-option">
+						<label>Date Range:</label>
+						<select>
+						<option>Today</option>
+						<option>Last Week</option>
+						<option>Last Month</option>
+						</select>
+					</div>
+					<div class="filter-option">
+						<label>Categories:</label>
+						<select multiple>
+						<option>Events</option>
+						<option>Pages</option>
+						<option>Students</option>
+						</select>
+					</div>
+					<div class="filter-option">
+						<label>Status:</label>
+						<select>
+						<option>Active</option>
+						<option>Completed</option>
+						<option>Pending</option>
+						</select>
+					</div>
+					<div class="filter-option">
+						<label>Sort By:</label>
+						<select>
+						<option>Alphabetical</option>
+						<option>Most Recent</option>
+						<option>Popular</option>
+						</select>
+					</div>
 					</div>
 					<div class="filter-buttons">
-						<button class="apply-button" on:click={() => showFilters = false}>Apply Filters</button>
-						<button class="reset-button" on:click={() => showFilters = false}>Clear Filters</button>
+					<button class="apply-button" on:click={() => showFilters = false}>Apply Filters</button>
+					<button class="reset-button" on:click={() => showFilters = false}>Clear Filters</button>
 					</div>
 				</div>
-			{/if}
+				{/if}
+
 		</div>
 
 		<!-- Right Side Buttons -->
@@ -95,19 +100,30 @@
 				</button>
 				<div class="profile-dropdown">
 					<a href="/profile">View Profile</a>
+		
+					<!-- Manage Option with Submenu -->
+					<div class="manage-menu">
+						<a href="/manage" class="manage-link">Manage</a>
+						<div class="manage-submenu">
+							<a href="/manage/pages">Manage Pages</a>
+							<a href="/manage/groups">Manage Groups</a>
+							<a href="/manage/events">Manage Events</a>
+						</div>
+					</div>
+		
 					<a href="/settings">Settings</a>
 					<div class="dropdown-divider"></div>
-        			<a href="/logout" class="dropdown-item">Logout</a>
+					<a href="/logout" class="dropdown-item">Logout</a>
 				</div>
 			</div>
 			<button class="notifications-button">
 				<span class="material-icons">notifications</span>
 			</button>
 		</div>
-	</nav>
+	</nav>	
 </header>
 
-<aside class:show={showMenu} class="side-menu">
+<!--<aside class:show={showMenu} class="side-menu">
 	<div class="user-avatar">
 		<img src="./src/lib/images/avatar.png" alt="User Avatar" />
 	</div>
@@ -117,32 +133,37 @@
 	<button>Manage Events</button>
 	<button>Manage Interests</button>
 	<button>Export Options</button>
-</aside>
+</aside>-->
 
-<main class:with-menu={showMenu}>
+<main>
 	<slot></slot>
 </main>
 
 <style>
 	/* Color Theme: White, Blue, Yellow, Black */
 	header {
-		background: #1A4870;
-		color: #fff;
-		padding: 0.5rem 1rem;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		position: sticky;
-		top: 0;
-		width: 100%;
-		z-index: 1000;
-	}
-
+    background: #000000;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 10px; /* Adjust the top position to include the margin */
+    width: 100%;
+    z-index: 1000;
+    border-radius: 30px;
+    max-width: 1650px; /* Limit the width of the header */
+    margin: 10px auto 0 auto; /* Set the margin on top and auto on sides */
+}
 	.top-nav {
+		margin-left: 50px;
+		margin-right: 50px;
 		display: flex;
 		align-items: center;
 		width: 100%;
 		justify-content: space-between;
+		transition: margin-left 0.3s ease;
 	}
 
 	.menu-toggle {
@@ -160,21 +181,28 @@
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	}
 
-	.site-name {
+	/*.site-name {
 		text-align: left;
 		flex: 1;
 		display: flex;
 		align-items: center;
 		padding-left: 3rem;
+		font-family: 'Poppins', sans-serif;
+	}   uncomment to put search to right*/ 
+	.site-name.with-menu {
+		margin-left: 200px; /* Shifts the site name when the menu is open */
 	}
 
 	.site-link {
 		text-decoration: none;
 		color: #fff;
+		display: flex;
+  align-items: center;
+  text-decoration: none;
 	}
 
 	.site-link h1 {
-		font-size: 2rem;
+		font-size: 1.5rem;
 		margin: 0;
 		transition: transform 0.3s ease;
 	}
@@ -188,19 +216,20 @@
 		align-items: center;
 		background-color: transparent;
 		border-radius: 5px;
-		padding: 0.2rem;
+		padding: 0.1rem;
 		flex: 1;
 		max-width: 400px;
-		margin: 0 1rem;
+		margin: 0 1rem; /* Keep the existing margin */
 		position: relative;
+		transform: translateX(30px); /* Adjust the value as needed */
 	}
 
 	.search-field {
 		border: 1px solid #ddd;
 		padding: 0.2rem 0.5rem;
-		border-radius: 5px;
+		border-radius: 12px;
 		flex: 1;
-		font-size: 1rem;
+		font-size: 1.25rem;
 	}
 
 	.filter-icon {
@@ -212,6 +241,84 @@
 		padding: 0.5rem;
 		margin-left: 0.5rem;
 	}
+	/* Apply fonts */
+.filter-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  color: #333;
+  box-shadow: 0 4.5px 6.5px rgba(0, 0, 0, 0.278);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 250px;
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  font-family: 'Poppins', sans-serif; /* Use Poppins for filter popup text */
+}
+
+.filter-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.filter-section {
+  margin-bottom: 1rem;
+  
+}
+h3 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+.filter-option {
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.filter-option label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif; /* Use Playfair Display for labels */
+}
+
+.filter-option select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif; /* Ensure select uses Poppins */
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.apply-button, .reset-button {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem; /* Reduced padding for smaller size */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.75rem; /* Reduced font size */
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.apply-button:hover, .reset-button:hover {
+    background-color: #0000008f;
+}
+
+.apply-button:active, .reset-button:active {
+    transform: scale(0.98);
+}
+
+
 
 	.generate-button, .upload-button {
 		background-color: transparent;
@@ -240,6 +347,7 @@
 	.button-text {
 		display: none;
 		margin-left: 0.5rem;
+		font-family: 'Poppins', sans-serif;
 	}
 
 	.generate-button:hover .button-text, .upload-button:hover .button-text {
@@ -266,6 +374,7 @@
 		border: none;
 		color: #fff;
 		cursor: pointer;
+		transform: translateX(10px); /* Adjust the value as needed */
 	}
 
 	.profile-pic {
@@ -276,42 +385,98 @@
 	}
 
 	.profile-dropdown {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		background-color: #ffffff;
-		color: #333;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		border-radius: 0.25rem;
-		padding: 0.5rem 0;
-		width: 100px;
-		z-index: 1050;
-		opacity: 0;
-		visibility: hidden;
-		transition: opacity 0.3s ease, visibility 0.3s ease;
-	}
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: linear-gradient(145deg, #ffffff, #f9f9f9);
+    color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    padding: 0.5rem 0;
+    width: 160px;
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    transform: translateY(10px);
+}
 
-	.profile-menu:hover .profile-dropdown {
-		opacity: 1;
-		visibility: visible;
-	}
+.profile-menu:hover .profile-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 
-	.profile-dropdown a {
-		color: #333;
-		text-decoration: none;
-		padding: 0.5rem 1rem;
-		display: block;
-	}
+.profile-dropdown a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-bottom: 1px solid #eee;
+}
 
-	.profile-dropdown a:hover {
-		background-color: #f8f9fa;
-		color: #007bff;
-	}
+.profile-dropdown a:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
 
-	.dropdown-divider {
-		border-top: 1.5px solid #6f6f6f;
-		margin: 0.5rem 0;
-	}
+.profile-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-divider {
+    border-top: 1.5px solid #ddd;
+    margin: 0.5rem 0;
+}
+
+.manage-menu {
+    position: relative;
+}
+
+.manage-submenu {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    background: linear-gradient(145deg, #ffffff, #f9f9f9);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    display: none;
+    z-index: 1060;
+    width: 270px;
+    border: 2px solid #ddd;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.manage-link:hover + .manage-submenu,
+.manage-submenu:hover {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.manage-submenu a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-bottom: 1px solid #eee;
+}
+
+.manage-submenu a:hover {
+    background-color: #f8f9fa;
+    color: #1A4870;
+}
+
+.manage-submenu a:last-child {
+    border-bottom: none;
+}
+
 	.nav-buttons {
 		display: flex;
 		align-items: center;
@@ -333,89 +498,62 @@
 		left: 0;
 		height: 100%;
 		width: 250px;
-		background-color: #D7D6D6;
-		padding: 1rem;
+		background-color: #ffffff; 
+		padding: 1.5rem 1rem;
 		transform: translateX(-100%);
-		transition: transform 0.3s ease;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
 		z-index: 1001;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+		font-family: 'Poppins', sans-serif;
 	}
 
 	aside.side-menu.show {
 		transform: translateX(0);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+	}
+	.menu-toggle.active {
+		color: #000000; /* Change icon color to blue when menu is open */
 	}
 
 	.user-avatar {
 		text-align: center;
-		margin-bottom: 1rem;
+		margin-bottom: 2rem;
 	}
 
 	.user-avatar img {
 		border-radius: 50%;
 		width: 100px;
 		height: 100px;
+		object-fit: cover;
+		border: 3px solid #fff; /* White border for contrast */
 	}
 
 	.side-menu button {
-		background-color: #8D8D92;
-		color: black;
+		background-color: #f4f4f4; /* Light grey button background */
+		color: #000000; /* Blue text */
 		border: none;
-		padding: 0.5rem 1rem;
-		border-radius: 5px;
-		margin-bottom: 0.5rem;
+		padding: 0.75rem 1rem;
+		border-radius: 10px;
+		margin-bottom: 1rem;
 		cursor: pointer;
 		width: 100%;
+		font-size: 1rem;
+		font-weight: 600;
+		text-align: left;
+		display: flex;
+		align-items: center;
+		transition: background-color 0.3s ease, transform 0.3s ease;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	}
 
 	.side-menu button:hover {
-		background-color: #fdd835;
+		background-color: #000000; /* Button changes to blue on hover */
+		color: #ffffff; /* White text on hover */
+		transform: scale(1.05); /* Slight grow effect on hover */
 	}
 
-	.filter-popup {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		background-color: #fff;
-		color: #333;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		border-radius: 0.25rem;
-		padding: 1rem;
-		width: 250px;
-		z-index: 1050;
-	}
-
-	.filter-section {
-		margin-bottom: 1rem;
-	}
-
-	.filter-option {
-		margin-bottom: 0.5rem;
-	}
-
-	.filter-buttons {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.apply-button, .reset-button {
-		background-color: #007bff;
-		color: #fff;
-		border: none;
-		padding: 0.5rem 1rem;
-		border-radius: 5px;
-		cursor: pointer;
-		font-size: 0.875rem;
-	}
-
-	.reset-button {
-		background-color: #6c757d;
-	}
-
-	.apply-button:hover {
-		background-color: #0056b3;
-	}
-
-	.reset-button:hover {
-		background-color: #5a6268;
+	.side-menu button:active {
+		transform: scale(1);
 	}
 
 	main {
@@ -425,8 +563,17 @@
 		color: #333;
 		transition: margin-left 0.3s ease;
 	}
+	.site-logo-container {
+  margin-right: 10px; /* Adjust space between logo and text */
+  
+}
 
-	main.with-menu {
-		margin-left: 250px;
-	}
+.site-logo {
+  width: 60px; /* Adjust size as needed */
+  height: auto; /* Keeps the aspect ratio */
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+	
 </style>
